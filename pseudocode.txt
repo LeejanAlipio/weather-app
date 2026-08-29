@@ -1,0 +1,27 @@
+JavaScript
+When a user enters the page, show a loading page before showing the contents
+    - could be setTimeout to simulate a page refreshing
+    - Or a real time function that waits for the whole page to load
+User could choose(toggle) whether the data should be fahrenheit or celcius
+    - a variable that consist of the preffered format
+    - a function that changes the format based on the variable
+    - a function for calculating or displaying the datas in fahrenheit
+    - a function for calculating or displaying the datas in celcius
+Change the look of the page based on the data   
+    - when the data shows it's rainy 
+        - change the color to match the weather
+    - when the data shows it's hot
+        - change the color to match the weather
+    - optional: show gif depending on the weather
+Create an asynchronous function to get the weather data
+    - takes a location parameter
+    - using that location, fetch the weather data
+    - return the weather data
+Create an asynchronous function that processes the data return
+    - return only the necessary datas
+
+HTML
+Create a form to get the location
+    - calls the function that gets the weather
+    - calls the function that renders the page
+    
