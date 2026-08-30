@@ -8,11 +8,48 @@
   <body>
     <header class="header">
       <h1 class="logo">Skyline</h1>
-      <input class="search" type="search" placeholder="Search a City..." required>
+      <input
+        class="search"
+        type="search"
+        placeholder="Search a City..."
+        required
+      />
       <div class="convert-btn-container">
         <button class="celcius-btn btn active" type="button">Celcius</button>
         <button class="fahrenheit-btn btn">Fahrenheit</button>
       </div>
     </header>
+    <main class="weather-container">
+      <section class="weather">
+        <div class="weather-header">
+          <div class="weather-header-top">
+            <div class="top-left">
+              <h3 class="location">No location</h3>
+              <p class="description">No description</p>
+            </div>
+            <img class="weather-icon" src="" alt="weather-icon">
+          </div>
+          <h2 class="temp">No Temp</h2>
+        </div>
+        <div class="weather-data">
+          <div class="data-container">
+            <p class="humidity data-name">Humidity</p>
+            <h3 class="humidity-data">No humidity</h3>
+          </div>
+          <div class="data-container">
+            <p class="wind-speed data-name">Wind Speed</p>
+            <h3 class="wind-speed-data">No wind speed</h3>
+          </div>
+          <div class="data-container">
+            <p class="sunrise data-name">Sunrise</p>
+            <h3 class="sunrise-data">No sunrise</h3>
+          </div>
+          <div class="data-container">
+            <p class="sunset data-name">Sunset</p>
+            <h3 class="sunset-data">No sunset</h3>
+          </div>
+        </div>
+      </section>
+    </main>
   </body>
 </html>
