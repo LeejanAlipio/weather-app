@@ -19,6 +19,17 @@ Create an asynchronous function to get the weather data
     - return the weather data
 Create an asynchronous function that processes the data return
     - return only the necessary datas
+        - currentConditions:
+            - humidity
+            - icon
+            - sunrise
+            - sunset
+            - temp
+            - windspeed
+        - days 
+            - 0 - 6 index
+        - description
+        - timezone
 
 HTML
 Create a form to get the location
