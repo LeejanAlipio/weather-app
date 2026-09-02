@@ -13,7 +13,7 @@ const elements = {
     sunset: document.querySelector('.sunset-data'),
   },
   buttons: {
-    celcius: document.querySelector('.celcius-btn'),
+    celsius: document.querySelector('.celsius-btn'),
     fahrenheit: document.querySelector('.fahrenheit-btn'),
   },
 };
