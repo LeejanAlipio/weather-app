@@ -1,26 +1,8 @@
 import './styles/styles.css';
 import { getWeather } from './utils/api.js';
 import capitalize from './utils/capitalize.js';
-
-const elements = {
-  input: {
-    searchInput: document.querySelector('.search'),
-  },
-  display: {
-    location: document.querySelector('.location'),
-    description: document.querySelector('.description'),
-    icon: document.querySelector('.weather-icon'),
-    temp: document.querySelector('.temp'),
-    humidity: document.querySelector('.humidity-data'),
-    windSpeed: document.querySelector('.wind-speed-data'),
-    sunrise: document.querySelector('.sunrise-data'),
-    sunset: document.querySelector('.sunset-data'),
-  },
-  buttons: {
-    celcius: document.querySelector('.celcius-btn'),
-    fahrenheit: document.querySelector('.fahrenheit-btn'),
-  },
-};
+import elements from './utils/elements.js';
+import state from './utils/state.js';
 
 async function renderWeather(city) {
   const weatherData = await getWeather(city);
@@ -36,9 +18,11 @@ async function renderWeather(city) {
   elements.display.sunset.textContent = weatherData.sunset;
 }
 
-elements.input.searchInput.addEventListener('keydown', (e) => {
-  if (e.key === 'Enter') renderWeather(elements.input.searchInput.value.trim());
-});
+function initListeners() {
+  elements.input.searchInput.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter')
+      renderWeather(elements.input.searchInput.value.trim());
+  });
 
   elements.buttons.celcius.addEventListener('click', () => {
     if (state.temp === 'fahrenheit') {
