@@ -2,6 +2,8 @@ const API_KEY = 'MMDRXDRLWJEBETRGJSRHLSL49';
 
 export async function getWeather(city) {
   try {
+    if (!city) return null;
+
     const response = await fetch(
       `https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${city}?key=${API_KEY}`
     );
