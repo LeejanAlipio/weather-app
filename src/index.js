@@ -3,6 +3,7 @@ import { getWeather } from './utils/api.js';
 import capitalize from './utils/capitalize.js';
 import elements from './utils/elements.js';
 import state from './utils/state.js';
+import getTempType from './utils/type-conversion.js';
 
 async function renderWeather(city) {
   const weatherData = await getWeather(city);
@@ -11,7 +12,7 @@ async function renderWeather(city) {
   elements.display.location.textContent = capitalize(city);
   elements.display.description.textContent = weatherData.description;
   elements.display.icon.src = icon.default;
-  elements.display.temp.textContent = `${weatherData.temp}°`;
+  elements.display.temp.textContent = `${getTempType(weatherData.temp)}°`;
   elements.display.humidity.textContent = `${weatherData.humidity}%`;
   elements.display.windSpeed.textContent = `${weatherData.windspeed} km/h`;
   elements.display.sunrise.textContent = weatherData.sunrise;
@@ -29,6 +30,7 @@ function initListeners() {
       state.toggleTemp();
       elements.buttons.celcius.classList.add('active');
       elements.buttons.fahrenheit.classList.remove('active');
+      renderWeather(elements.input.searchInput.value.trim());
     }
 
     return;
@@ -39,6 +41,7 @@ function initListeners() {
       state.toggleTemp();
       elements.buttons.fahrenheit.classList.add('active');
       elements.buttons.celcius.classList.remove('active');
+      renderWeather(elements.input.searchInput.value.trim());
     }
 
     return;
