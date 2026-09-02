@@ -14,7 +14,8 @@ export async function getWeather(city) {
 
     return parseWeatherData(data);
   } catch (error) {
-    console.log(error);
+    console.error('Weather fetch failed:', error);
+    return null;
   }
 }
 
