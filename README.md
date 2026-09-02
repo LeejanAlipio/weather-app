@@ -71,7 +71,4 @@ npm run build
 - Weather data is fetched client-side; no backend server is required.
 - Icons are dynamically imported based on current weather conditions.
 - The app is designed as a practice project and can be expanded with features like historical data, weather alerts, or multi-language support.
-
-## License
-
-MIT
+- The project icon only consist of rain. Other location with other icon will not render the location. Feel free to add the missing icons
