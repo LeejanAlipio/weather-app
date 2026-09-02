@@ -6,51 +6,72 @@ import state from './utils/state.js';
 import getTempType from './utils/type-conversion.js';
 
 async function renderWeather(city) {
-  const weatherData = await getWeather(city);
+  try {
+    const weatherData = await getWeather(city);
 
-  if (!weatherData) {
-    const notFound = 'City not found';
-    elements.display.location.textContent = capitalize(city) || notFound;
-    elements.display.description.textContent = notFound;
-    elements.display.icon.src = '';
-    elements.display.temp.textContent = notFound;
-    elements.display.humidity.textContent = notFound;
-    elements.display.windSpeed.textContent = notFound;
-    elements.display.sunrise.textContent = notFound;
-    elements.display.sunset.textContent = notFound;
-    return;
+    if (!weatherData) {
+      const notFound = 'City not found';
+      elements.display.location.textContent = capitalize(city) || notFound;
+      elements.display.description.textContent = notFound;
+      elements.display.icon.src = '';
+      elements.display.temp.textContent = notFound;
+      elements.display.humidity.textContent = notFound;
+      elements.display.windSpeed.textContent = notFound;
+      elements.display.sunrise.textContent = notFound;
+      elements.display.sunset.textContent = notFound;
+
+      state.currentTemp = null;
+
+      return;
+    }
+
+    state.currentTemp = weatherData.temp;
+
+    try {
+      const icon = await import(`./assets/icons/${weatherData.icon}.svg`);
+      elements.display.icon.src = icon.default || '';
+    } catch (error) {
+      console.error(error);
+    }
+
+    elements.display.location.textContent =
+      capitalize(city) || 'City not found';
+    elements.display.description.textContent = weatherData.description || '';
+
+    updateTempDisplay();
+    elements.display.humidity.textContent = `${weatherData.humidity ?? ''}`;
+    elements.display.windSpeed.textContent = weatherData.windspeed
+      ? `${weatherData.windspeed} km/h`
+      : '';
+    elements.display.sunrise.textContent = weatherData.sunrise || '';
+    elements.display.sunset.textContent = weatherData.sunset || '';
+  } catch (error) {
+    console.error(error);
   }
+}
 
-  const icon = await import(`./assets/icons/${weatherData.icon}.svg`);
+function updateTempDisplay() {
+  elements.display.temp.textContent = `${getTempType(state.currentTemp)}°`;
+}
 
-  elements.display.location.textContent = capitalize(city) || 'City not found';
-  elements.display.description.textContent = weatherData.description || '';
-  elements.display.icon.src = icon.default || '';
-  elements.display.temp.textContent = `${getTempType(weatherData.temp) || ''}°`;
-  elements.display.humidity.textContent = `${weatherData.humidity ?? ''}`;
-  elements.display.windSpeed.textContent = weatherData.windspeed
-    ? `${weatherData.windspeed} km/h`
-    : '';
-  elements.display.sunrise.textContent = weatherData.sunrise || '';
-  elements.display.sunset.textContent = weatherData.sunset || '';
-
-  elements.buttons.celcius.addEventListener('click', () => {
-    if (state.temp === 'fahrenheit') {
+function setUpButtons() {
+  elements.buttons.celsius.addEventListener('click', () => {
+    if (state.temp === 'fahrenheit' && state.currentTemp !== null) {
       state.toggleTemp();
-      elements.buttons.celcius.classList.add('active');
+      elements.buttons.celsius.classList.add('active');
       elements.buttons.fahrenheit.classList.remove('active');
-      elements.display.temp.textContent = `${getTempType(weatherData.temp)}°`;
+      updateTempDisplay();
     }
 
     return;
   });
 
   elements.buttons.fahrenheit.addEventListener('click', () => {
-    if (state.temp === 'celcius') {
+    if (state.temp === 'celsius' && state.currentTemp !== null) {
       state.toggleTemp();
       elements.buttons.fahrenheit.classList.add('active');
-      elements.buttons.celcius.classList.remove('active');
-      elements.display.temp.textContent = `${getTempType(weatherData.temp)}°`;
+      elements.buttons.celsius.classList.remove('active');
+      updateTempDisplay();
     }
 
     return;
@@ -62,6 +83,8 @@ function initForm() {
     if (e.key === 'Enter')
       renderWeather(elements.input.searchInput.value.trim());
   });
+
+  setUpButtons();
 }
 
 initForm();
