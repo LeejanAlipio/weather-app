@@ -1,94 +1,66 @@
-# Webpack Template
+# Weather App
 
-A lightweight Webpack starter template for building frontend projects quickly. It includes a simple development workflow, production build setup, and basic linting and formatting support.
+A small client-side weather application built with vanilla JavaScript and Webpack. It fetches weather data from Visual Crossing and displays current conditions and a short forecast.
 
-## Features
+## Table of contents
+- **Overview**: What this project is and what it does
+- **Prerequisites**: Tools you need to run the project
+- **Quick start**: Install, run in development, and build for production
+- **Project structure**: Key files and folders to know
+- **Contributing**: How to make changes
 
-- Development and production Webpack configurations
-- HTML generation with HtmlWebpackPlugin
-- CSS loading with style-loader and css-loader
-- HTML loading with html-loader
-- ES module-based Webpack config files
-- ESLint and Prettier support for consistent code quality
+## Overview
+
+This is a minimal example app showing how to fetch and render weather data in the browser using a small Webpack setup. It includes dynamic asset imports (SVG icons), simple state handling, and helper utilities.
 
 ## Prerequisites
 
-Make sure you have the following installed:
+- Node.js (recommended v16+)
+- npm (bundled with Node)
 
-- Node.js
-- npm
+## Quick start
 
-## Getting Started
-
-1. Clone the repository:
-
-```bash
-git clone https://github.com/LeejanAlipio/webpack-template.git
-```
-
-2. Navigate into the project folder:
-
-```bash
-cd webpack-template
-```
-
-3. Install dependencies:
+1. Install dependencies
 
 ```bash
 npm install
 ```
 
-4. Start the development server:
+2. Run the development server
 
 ```bash
 npm run dev
 ```
 
-5. Build for production:
+3. Build for production
 
 ```bash
 npm run build
 ```
 
-## Available Scripts
+The development server uses `webpack.dev.js` and serves the app with hot reloading.
 
-- `npm run dev` — start the development server with live reloading
-- `npm run build` — create a production build using `webpack.prod.js`
-- `npm run lint` — run ESLint across the project
-- `npm run lint:fix` — automatically fix ESLint issues where possible
+## Project structure (high level)
 
-## Code Quality
+- `src/` — application source
+	- `index.html` — HTML entry
+	- `index.js` — main JS (renders UI, handles form)
+	- `styles/` — CSS files
+	- `utils/` — helpers (`api.js`, `elements.js`, `state.js`, etc.)
+	- `assets/` — images and icons
+- `webpack.*.js` — Webpack configs (dev/prod/common)
+- `package.json` — scripts and dependencies
 
-You can also check formatting with Prettier:
+## Scripts
 
-```bash
-npx prettier --check .
-```
+- `npm run dev` — start dev server (uses `webpack.dev.js`)
+- `npm run build` — production build (uses `webpack.prod.js`)
+- `npm run lint` — run ESLint
 
-To format files automatically:
+## Contributing
 
-```bash
-npx prettier --write .
-```
+Feel free to open issues or PRs. For small changes:
 
-## Project Structure
-
-```text
-webpack-template/
-├── src/
-│   ├── index.html
-│   ├── index.js
-│   └── styles/
-│       └── styles.css
-├── .prettierrc
-├── eslint.config.js
-├── webpack.common.js
-├── webpack.dev.js
-├── webpack.prod.js
-├── package.json
-└── README.md
-```
-
-## Notes
-
-This template is a good starting point for small projects and can be expanded as needed for more advanced frontend builds.
+1. Fork the repo
+2. Create a branch for your feature/fix
+3. Open a PR describing the change
