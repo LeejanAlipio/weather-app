@@ -39,3 +39,26 @@ async function renderWeather(city) {
 elements.input.searchInput.addEventListener('keydown', (e) => {
   if (e.key === 'Enter') renderWeather(elements.input.searchInput.value.trim());
 });
+
+  elements.buttons.celcius.addEventListener('click', () => {
+    if (state.temp === 'fahrenheit') {
+      state.toggleTemp();
+      elements.buttons.celcius.classList.add('active');
+      elements.buttons.fahrenheit.classList.remove('active');
+    }
+
+    return;
+  });
+
+  elements.buttons.fahrenheit.addEventListener('click', () => {
+    if (state.temp === 'celcius') {
+      state.toggleTemp();
+      elements.buttons.fahrenheit.classList.add('active');
+      elements.buttons.celcius.classList.remove('active');
+    }
+
+    return;
+  });
+}
+
+initListeners();
