@@ -17,9 +17,8 @@ async function renderWeather(city) {
     const weatherData = await getWeather(normalizedCity);
 
     if (!weatherData) {
-      renderErrorState(capitalize(normalizedCity) || 'City not found');
+      renderErrorState('City not found');
       state.currentTemp = null;
-      updateTempDisplay();
       return;
     }
 
