@@ -6,22 +6,20 @@ import state from './utils/state.js';
 import getTempType from './utils/type-conversion.js';
 
 async function renderWeather(city) {
+  const normalizedCity = city.trim();
+
+  if (!normalizedCity) {
+    renderErrorState('City not found');
+    return;
+  }
+
   try {
-    const weatherData = await getWeather(city);
+    const weatherData = await getWeather(normalizedCity);
 
     if (!weatherData) {
-      const notFound = 'City not found';
-      elements.display.location.textContent = capitalize(city) || notFound;
-      elements.display.description.textContent = notFound;
-      elements.display.icon.src = '';
-      elements.display.temp.textContent = notFound;
-      elements.display.humidity.textContent = notFound;
-      elements.display.windSpeed.textContent = notFound;
-      elements.display.sunrise.textContent = notFound;
-      elements.display.sunset.textContent = notFound;
-
+      renderErrorState(capitalize(normalizedCity) || 'City not found');
       state.currentTemp = null;
-
+      updateTempDisplay();
       return;
     }
 
@@ -31,23 +29,34 @@ async function renderWeather(city) {
       const icon = await import(`./assets/icons/${weatherData.icon}.svg`);
       elements.display.icon.src = icon.default || '';
     } catch (error) {
-      console.error(error);
+      console.error('Icon load failed:', error);
     }
 
-    elements.display.location.textContent =
-      capitalize(city) || 'City not found';
+    elements.display.location.textContent = capitalize(normalizedCity) || 'City not found';
     elements.display.description.textContent = weatherData.description || '';
-
-    updateTempDisplay();
-    elements.display.humidity.textContent = `${weatherData.humidity ?? ''}`;
+    elements.display.humidity.textContent = weatherData.humidity ?? '';
     elements.display.windSpeed.textContent = weatherData.windspeed
       ? `${weatherData.windspeed} km/h`
       : '';
     elements.display.sunrise.textContent = weatherData.sunrise || '';
     elements.display.sunset.textContent = weatherData.sunset || '';
+
+    updateTempDisplay();
   } catch (error) {
-    console.error(error);
+    console.error('Render failed:', error);
+    renderErrorState('City not found');
   }
+}
+
+function renderErrorState(message) {
+  elements.display.location.textContent = message;
+  elements.display.description.textContent = message;
+  elements.display.icon.src = '';
+  elements.display.temp.textContent = message;
+  elements.display.humidity.textContent = message;
+  elements.display.windSpeed.textContent = message;
+  elements.display.sunrise.textContent = message;
+  elements.display.sunset.textContent = message;
 }
 
 function updateTempDisplay() {
