@@ -145,3 +145,11 @@ body {
 .data-name {
     font-size: 12px;
 }
+
+.rain {
+    background: linear-gradient(180deg, #9ad7ff 0%, #367ab8 100%);
+}
+
+.sunny {
+    background: linear-gradient(180deg, #ffd166 0%, #d95d1f 100%);
+}
