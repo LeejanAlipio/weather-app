@@ -24,6 +24,12 @@ async function renderWeather(city) {
 
     state.currentTemp = weatherData.temp;
 
+    if (state.currentTemp >= 90) {
+      document.body.classList.add('sunny');
+    } else {
+      document.body.classList.add('rain');
+    }
+
     try {
       const icon = await import(`./assets/icons/${weatherData.icon}.svg`);
       elements.display.icon.src = icon.default || '';
@@ -31,7 +37,8 @@ async function renderWeather(city) {
       console.error('Icon load failed:', error);
     }
 
-    elements.display.location.textContent = capitalize(normalizedCity) || 'City not found';
+    elements.display.location.textContent =
+      capitalize(normalizedCity) || 'City not found';
     elements.display.description.textContent = weatherData.description || '';
     elements.display.humidity.textContent = weatherData.humidity ?? '';
     elements.display.windSpeed.textContent = weatherData.windspeed
