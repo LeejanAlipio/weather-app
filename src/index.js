@@ -2,7 +2,12 @@ import './styles/styles.css';
 import { getWeather } from './utils/api.js';
 import capitalize from './utils/capitalize.js';
 import elements from './utils/elements.js';
-import state from './utils/state.js';
+import {
+  setTemp,
+  getTempUnit,
+  toggleTempUnit,
+  getTemp,
+} from './utils/state.js';
 import getTempType from './utils/type-conversion.js';
 
 async function renderWeather(city) {
@@ -18,13 +23,13 @@ async function renderWeather(city) {
 
     if (!weatherData) {
       renderErrorState('City not found');
-      state.currentTemp = null;
       return;
     }
 
-    state.currentTemp = weatherData.temp;
+    setTemp(weatherData.temp);
 
-    if (state.currentTemp >= 90) {
+    document.body.classList.remove('sunny', 'rain');
+    if (getTemp() >= 90) {
       document.body.classList.add('sunny');
     } else {
       document.body.classList.add('rain');
@@ -66,13 +71,13 @@ function renderErrorState(message) {
 }
 
 function updateTempDisplay() {
-  elements.display.temp.textContent = `${getTempType(state.currentTemp)}°`;
+  elements.display.temp.textContent = `${getTempType(getTemp())}°`;
 }
 
 function setUpButtons() {
   elements.buttons.celsius.addEventListener('click', () => {
-    if (state.temp === 'fahrenheit' && state.currentTemp !== null) {
-      state.toggleTemp();
+    if (getTempUnit() === 'fahrenheit' && getTemp() !== null) {
+      toggleTempUnit();
       elements.buttons.celsius.classList.add('active');
       elements.buttons.fahrenheit.classList.remove('active');
       updateTempDisplay();
@@ -82,8 +87,8 @@ function setUpButtons() {
   });
 
   elements.buttons.fahrenheit.addEventListener('click', () => {
-    if (state.temp === 'celsius' && state.currentTemp !== null) {
-      state.toggleTemp();
+    if (getTempUnit() === 'celsius' && getTemp() !== null) {
+      toggleTempUnit();
       elements.buttons.fahrenheit.classList.add('active');
       elements.buttons.celsius.classList.remove('active');
       updateTempDisplay();
