@@ -19,7 +19,7 @@ class WeatherService {
 
       const weatherData = await response.json();
 
-      return this.processedWeatherData(weatherData);
+      return this.processWeatherData(weatherData);
     } catch (error) {
       console.error(error);
     }
