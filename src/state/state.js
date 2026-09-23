@@ -17,5 +17,5 @@ export const getCurrentTempUnit = () => {
 
 export const toggleTempUnit = () => {
   return (state.tempUnit =
-    state.tempUnit === 'fahrenheit' ? 'celcius' : 'fahrenheit');
+    state.tempUnit === 'fahrenheit' ? 'celsius' : 'fahrenheit');
 };
