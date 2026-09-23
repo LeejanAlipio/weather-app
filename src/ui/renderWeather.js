@@ -5,7 +5,10 @@ import { capitalize } from '../utils/capitalize.js';
 import { getTemp } from '../utils/tempConversion.js';
 
 export const renderWeather = async (city) => {
-  if (!city) return;
+  if (!city) {
+    renderErrorMessage('Please enter a valid city');
+    return;
+  }
 
   try {
     const weatherData = await weatherService.getWeather(city);
@@ -43,7 +46,7 @@ export const renderTemp = () => {
 const renderErrorMessage = (message) => {
   elements.display.description.textContent = message;
   elements.display.humidity.textContent = message;
-  elements.display.icon.textContent = '';
+  elements.display.icon.src = '';
   elements.display.location.textContent = message;
   elements.display.sunrise.textContent = message;
   elements.display.sunset.textContent = message;
