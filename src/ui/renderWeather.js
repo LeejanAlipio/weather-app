@@ -20,6 +20,13 @@ export const renderWeather = async (city) => {
 
     setTemp(weatherData.temp);
 
+    document.body.classList.remove('sunny', 'rain');
+    if (getCurrentTemp() >= 90) {
+      document.body.classList.add('sunny');
+    } else {
+      document.body.classList.add('rain');
+    }
+
     try {
       const icon = await import(`../assets/icons/${weatherData.icon}.svg`);
       elements.display.icon.src = icon.default || '';
