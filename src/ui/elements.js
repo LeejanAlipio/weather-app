@@ -1,4 +1,4 @@
-const elements = {
+export const elements = {
   input: {
     searchInput: document.querySelector('.search'),
   },
@@ -17,5 +17,3 @@ const elements = {
     fahrenheit: document.querySelector('.fahrenheit-btn'),
   },
 };
-
-export default elements;

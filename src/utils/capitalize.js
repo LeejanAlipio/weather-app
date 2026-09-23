@@ -1,3 +1,3 @@
-export default function capitalize(str) {
-    return str.charAt(0).toUpperCase() + str.slice(1);
-}
+export const capitalize = (city) => {
+  return city.at(0).toUpperCase() + city.slice(1);
+};
