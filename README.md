@@ -1,40 +1,53 @@
 # Weather App
 
-A client-side weather application built with vanilla JavaScript and Webpack. It fetches real-time weather data from Visual Crossing and displays current conditions along with a short forecast.
+A client-side weather application built with vanilla JavaScript and Webpack. It fetches current weather data from the Visual Crossing Weather API and displays it in a simple dashboard.
 
-## Live Preview
+## Live Demo
 
-Visit the app here: [weather-app.vercel.app](https://weather-app-zeta-seven.vercel.app/)
+Visit the deployed app at [weather-app-zeta-seven.vercel.app](https://weather-app-zeta-seven.vercel.app/).
 
 ## Features
 
-- Search weather by city or coordinates
-- Display current weather conditions with temperature, humidity, and wind speed
-- Show a multi-day weather forecast
-- Dynamic weather icons based on conditions
-- Responsive design for desktop and mobile
+- Search for current weather by city
+- Display temperature, conditions, humidity, wind speed, sunrise, and sunset
+- Toggle the displayed temperature between Fahrenheit and Celsius
+- Change the page theme based on the current temperature
+- Load weather icons dynamically from `src/assets/icons`
 
 ## Tech Stack
 
-- Languages: JavaScript, HTML, CSS
-- Bundler: Webpack 5
-- Notable tooling: HTML Webpack Plugin, Babel, CSS Loader
-- API: Visual Crossing Weather API
+- JavaScript, HTML, and CSS
+- Webpack 5
+- Babel
+- ESLint and Jest
+- Visual Crossing Weather API
 
 ## Project Structure
 
-```
+```text
 src/
-  index.html          App entry point
-  index.js            Main application logic
-  styles/             CSS files
+  index.html                 HTML template
+  index.js                   Application entry point
+  assets/
+    fonts/                   Local font files
+    icons/                   Weather icons
+  services/
+    weatherService.js        Weather API requests and data processing
+  state/
+    state.js                 Temperature and unit state
+  styles/
+    styles.css               Application styles and weather themes
+  ui/
+    buttons.js               Temperature unit button handlers
+    elements.js              DOM element references
+    form.js                  Search input handler
+    renderWeather.js         Weather data and error rendering
   utils/
-    api.js            Weather API calls
-    elements.js       DOM element helpers
-    state.js          App state management
-  assets/             Images and SVG icons
-webpack.*.js          Webpack configs (common, dev, prod)
-package.json          Scripts and dependencies
+    capitalize.js            City name formatting
+    tempConversion.js        Fahrenheit/Celsius conversion
+webpack.common.js            Shared Webpack configuration
+webpack.dev.js               Development configuration
+webpack.prod.js              Production configuration
 ```
 
 ## Getting Started
@@ -42,33 +55,38 @@ package.json          Scripts and dependencies
 Prerequisites: Node.js and npm.
 
 1. Install dependencies:
+
    ```bash
    npm install
    ```
 
 2. Start the development server:
+
    ```bash
    npm run dev
    ```
 
-3. Open the local development URL shown by Webpack.
+3. Open the local URL shown by Webpack.
 
-## Build for Production
+The app currently keeps the Visual Crossing API key in `src/services/weatherService.js`. This is suitable for local practice, but a production deployment should use a restricted key or a server-side proxy because client-side keys are visible to users.
+
+## Production Build
 
 ```bash
 npm run build
 ```
 
+The optimized output is written to `dist/`.
+
 ## Scripts
 
-- `npm run dev` — start dev server with hot reloading
-- `npm run build` — production build with optimizations
-- `npm run lint` — run ESLint
+- `npm run dev` - Start the development server with hot reloading
+- `npm run build` - Create a production build
+- `npm run lint` - Run ESLint
+- `npm test` - Run the Jest test suite
 
-## Notes
+## Current Limitations
 
-- The app uses the Visual Crossing Weather API; you'll need a free API key to run locally.
-- Weather data is fetched client-side; no backend server is required.
-- Icons are dynamically imported based on current weather conditions.
-- The app is designed as a practice project and can be expanded with features like historical data, weather alerts, or multi-language support.
-- The project icon only consist of rain. Other location with other icon will not render the location. Feel free to add the missing icons
+- Only the weather icon currently included in the project can be rendered. Additional Visual Crossing icon names need matching files in `src/assets/icons`.
+- The current interface displays current conditions only; forecast data is not rendered yet.
+- API errors are logged in the browser and need a more complete user-facing error state.
