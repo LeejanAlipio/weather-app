@@ -46,7 +46,7 @@ export const renderTemp = () => {
 
 const renderWeatherData = (weatherData, city) => {
   elements.display.description.textContent = weatherData.description;
-  elements.display.humidity.textContent = weatherData.humidity;
+  elements.display.humidity.textContent = `${weatherData.humidity}%`;
   elements.display.location.textContent = capitalize(city);
   elements.display.sunrise.textContent = weatherData.sunrise;
   elements.display.sunset.textContent = weatherData.sunset;
