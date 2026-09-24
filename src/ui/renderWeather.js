@@ -29,7 +29,7 @@ export const renderWeather = async (city) => {
 
     try {
       const icon = await import(`../assets/icons/${weatherData.icon}.svg`);
-      elements.display.icon.src = icon.default || '';
+      elements.display.icon.src = icon.default;
     } catch (error) {
       console.error(error);
     }
