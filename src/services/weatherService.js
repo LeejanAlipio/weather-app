@@ -1,8 +1,10 @@
 const API_KEY = 'MMDRXDRLWJEBETRGJSRHLSL49';
 
 class WeatherService {
+  #api;
+
   constructor(api) {
-    this.api = api;
+    this.#api = api;
   }
 
   async getWeather(city) {
@@ -10,7 +12,7 @@ class WeatherService {
 
     try {
       const response = await fetch(
-        `https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${city}?key=${this.api}`
+        `https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${city}?key=${this.#api}`
       );
 
       if (!response.ok) {
