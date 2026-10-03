@@ -1,7 +1,9 @@
-import { getTemp } from '../src/utils/tempConversion';
-import { toggleTempUnit } from '../src/state/state';
+import { getTemp } from '../src/utils/tempConversion.js';
 
-test('Convert temp unit', () => {
-  toggleTempUnit();
-  expect(getTemp(90)).toBe(32.22);
+test('converts Fahrenheit to Celsius', () => {
+  expect(getTemp(90, 'celsius')).toBe(32.22);
+});
+
+test('keeps Fahrenheit values unchanged', () => {
+  expect(getTemp(90, 'fahrenheit')).toBe(90);
 });

@@ -11,6 +11,17 @@ export default defineConfig([
     languageOptions: { globals: { ...globals.browser, ...globals.node } },
   },
   {
+    files: ['test/**/*.js'],
+    languageOptions: {
+      globals: {
+        ...globals.jest,
+      },
+    },
+  },
+  {
+    ignores: ['dist/**', 'node_modules/**'],
+  },
+  {
     rules: {
       quotes: ['error', 'single'],
       semi: ['error', 'always'],
