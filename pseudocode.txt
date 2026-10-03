@@ -36,5 +36,5 @@ Create a form to get the location
     - calls the function that gets the weather
     - calls the function that renders the page
 
-MMDRXDRLWJEBETRGJSRHLSL49
-`https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${city}?key=${API_KEY}`
+Configure `WEATHER_API_KEY` through the build environment.
+`https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${city}?key=${WEATHER_API_KEY}`

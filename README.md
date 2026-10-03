@@ -68,7 +68,15 @@ Prerequisites: Node.js and npm.
 
 3. Open the local URL shown by Webpack.
 
-The app currently keeps the Visual Crossing API key in `src/services/weatherService.js`. This is suitable for local practice, but a production deployment should use a restricted key or a server-side proxy because client-side keys are visible to users.
+The Visual Crossing API key is injected at build time from the `WEATHER_API_KEY`
+environment variable. Client-side keys are visible to users, so production should
+use a restricted key or a server-side proxy.
+
+For a local build, set the variable before starting Webpack:
+
+```bash
+WEATHER_API_KEY=your-key npm run dev
+```
 
 ## Production Build
 
@@ -89,4 +97,5 @@ The optimized output is written to `dist/`.
 
 - Only the weather icon currently included in the project can be rendered. Additional Visual Crossing icon names need matching files in `src/assets/icons`.
 - The current interface displays current conditions only; forecast data is not rendered yet.
-- API errors are logged in the browser and need a more complete user-facing error state.
+- API errors are shown in the weather panel; a production app could add richer
+  error states and retry actions.

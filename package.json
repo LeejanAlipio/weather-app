@@ -1,5 +1,5 @@
 {
-  "name": "webpack-template",
+  "name": "weather-app",
   "version": "1.0.0",
   "description": "Webpack Template to make new project easier to start.",
   "main": "index.js",
@@ -12,22 +12,23 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/LeejanAlipio/webpack-template.git"
+    "url": "git+https://github.com/LeejanAlipio/weather-app.git"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "type": "module",
   "bugs": {
-    "url": "https://github.com/LeejanAlipio/webpack-template/issues"
+    "url": "https://github.com/LeejanAlipio/weather-app/issues"
   },
-  "homepage": "https://github.com/LeejanAlipio/webpack-template#readme",
+  "homepage": "https://github.com/LeejanAlipio/weather-app#readme",
   "devDependencies": {
     "@babel/core": "^8.0.6",
     "@babel/preset-env": "^8.0.6",
     "@eslint/js": "^10.0.1",
     "babel-jest": "^30.5.2",
     "css-loader": "^7.1.4",
+    "dotenv": "^18.0.4",
     "eslint": "^10.8.0",
     "eslint-config-prettier": "^10.1.8",
     "globals": "^17.8.0",
