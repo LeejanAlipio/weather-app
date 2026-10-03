@@ -4,7 +4,7 @@ const state = {
 };
 
 export const setTemp = (temp) => {
-  return state.temp = temp;
+  state.temp = temp;
 };
 
 export const getCurrentTemp = () => {
@@ -16,6 +16,6 @@ export const getCurrentTempUnit = () => {
 };
 
 export const toggleTempUnit = () => {
-  return (state.tempUnit =
-    state.tempUnit === 'fahrenheit' ? 'celsius' : 'fahrenheit');
+  state.tempUnit =
+    state.tempUnit === 'fahrenheit' ? 'celsius' : 'fahrenheit';
 };

@@ -1,3 +1,8 @@
 export const capitalize = (city) => {
-  return city.at(0).toUpperCase() + city.slice(1);
+  const normalizedCity = city?.trim();
+  if (!normalizedCity) {
+    return '';
+  }
+
+  return normalizedCity.at(0).toUpperCase() + normalizedCity.slice(1);
 };

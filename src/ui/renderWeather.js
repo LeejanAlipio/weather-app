@@ -1,5 +1,9 @@
 import { weatherService } from '../services/weatherService.js';
-import { setTemp, getCurrentTemp } from '../state/state.js';
+import {
+  setTemp,
+  getCurrentTemp,
+  getCurrentTempUnit,
+} from '../state/state.js';
 import { elements } from './elements.js';
 import { capitalize } from '../utils/capitalize.js';
 import { getTemp } from '../utils/tempConversion.js';
@@ -12,11 +16,6 @@ export const renderWeather = async (city) => {
 
   try {
     const weatherData = await weatherService.getWeather(city);
-
-    if (!weatherData) {
-      renderErrorMessage('City not Found');
-      return;
-    }
 
     setTemp(weatherData.temp);
 
@@ -37,11 +36,17 @@ export const renderWeather = async (city) => {
     renderWeatherData(weatherData, city);
   } catch (error) {
     console.error(error);
+    const message =
+      error instanceof Error ? error.message : 'Unable to load weather data.';
+    renderErrorMessage(message);
   }
 };
 
 export const renderTemp = () => {
-  elements.display.temp.textContent = `${getTemp(getCurrentTemp())}°`;
+  elements.display.temp.textContent = `${getTemp(
+    getCurrentTemp(),
+    getCurrentTempUnit()
+  )}°`;
 };
 
 const renderWeatherData = (weatherData, city) => {
@@ -55,12 +60,19 @@ const renderWeatherData = (weatherData, city) => {
 };
 
 const renderErrorMessage = (message) => {
-  elements.display.description.textContent = message;
-  elements.display.humidity.textContent = message;
+  const displayFields = [
+    elements.display.description,
+    elements.display.humidity,
+    elements.display.location,
+    elements.display.sunrise,
+    elements.display.sunset,
+    elements.display.temp,
+    elements.display.windSpeed,
+  ];
+
+  displayFields.forEach((field) => {
+    field.textContent = message;
+  });
+
   elements.display.icon.src = '';
-  elements.display.location.textContent = message;
-  elements.display.sunrise.textContent = message;
-  elements.display.sunset.textContent = message;
-  elements.display.temp.textContent = message;
-  elements.display.windSpeed.textContent = message;
 };
