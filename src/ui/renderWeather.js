@@ -4,9 +4,11 @@ import { elements } from './elements.js';
 import { capitalize } from '../utils/capitalize.js';
 import { getTemp } from '../utils/tempConversion.js';
 
+const SUNNY_TEMPERATURE_THRESHOLD_FAHRENHEIT = 90;
+
 export const renderWeather = async (city) => {
   if (!city) {
-    renderErrorMessage('Please enter a valid city');
+    showErrorState('Please enter a valid city');
     return;
   }
 
@@ -15,34 +17,27 @@ export const renderWeather = async (city) => {
 
     setTemp(weatherData.temp);
 
-    document.body.classList.remove('sunny', 'rain');
-    if (getCurrentTemp() >= 90) {
-      document.body.classList.add('sunny');
-    } else {
-      document.body.classList.add('rain');
-    }
-
-    try {
-      const icon = await import(`../assets/icons/${weatherData.icon}.svg`);
-      elements.display.icon.src = icon.default;
-    } catch (error) {
-      console.error('Icon failed to load: ', error);
-    }
+    updateWeatherTheme(weatherData.temp);
+    await loadWeatherIcon(weatherData.icon);
 
     renderWeatherData(weatherData, city);
   } catch (error) {
     console.error(error);
     const message =
       error instanceof Error ? error.message : 'Unable to load weather data.';
-    renderErrorMessage(message);
+    showErrorState(message);
   }
 };
 
 export const renderTemp = () => {
-  elements.display.temp.textContent = `${getTemp(
-    getCurrentTemp(),
-    getCurrentTempUnit()
-  )}°`;
+  const temp = getCurrentTemp();
+
+  if (temp === null) {
+    elements.display.temp.textContent = '';
+    return;
+  }
+
+  elements.display.temp.textContent = `${getTemp(temp, getCurrentTempUnit())}°`;
 };
 
 const renderWeatherData = (weatherData, city) => {
@@ -55,7 +50,24 @@ const renderWeatherData = (weatherData, city) => {
   elements.display.windSpeed.textContent = `${weatherData.windspeed} km/h`;
 };
 
-const renderErrorMessage = (message) => {
+const updateWeatherTheme = (temperature) => {
+  document.body.classList.remove('sunny', 'rain');
+  document.body.classList.add(
+    temperature >= SUNNY_TEMPERATURE_THRESHOLD_FAHRENHEIT ? 'sunny' : 'rain'
+  );
+};
+
+const loadWeatherIcon = async (iconName) => {
+  try {
+    const icon = await import(`../assets/icons/${iconName}.svg`);
+    elements.display.icon.src = icon.default;
+  } catch (error) {
+    console.error('Icon failed to load:', error);
+    elements.display.icon.src = '';
+  }
+};
+
+const showErrorState = (message) => {
   setTemp(null);
 
   const displayFields = [
