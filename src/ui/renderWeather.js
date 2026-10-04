@@ -1,9 +1,5 @@
 import { weatherService } from '../services/weatherService.js';
-import {
-  setTemp,
-  getCurrentTemp,
-  getCurrentTempUnit,
-} from '../state/state.js';
+import { setTemp, getCurrentTemp, getCurrentTempUnit } from '../state/state.js';
 import { elements } from './elements.js';
 import { capitalize } from '../utils/capitalize.js';
 import { getTemp } from '../utils/tempConversion.js';
