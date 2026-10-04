@@ -35,7 +35,6 @@ export const renderWeather = async (city) => {
     const message =
       error instanceof Error ? error.message : 'Unable to load weather data.';
     renderErrorMessage(message);
-    setTemp(null);
   }
 };
 
@@ -57,6 +56,8 @@ const renderWeatherData = (weatherData, city) => {
 };
 
 const renderErrorMessage = (message) => {
+  setTemp(null);
+
   const displayFields = [
     elements.display.description,
     elements.display.humidity,
