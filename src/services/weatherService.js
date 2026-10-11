@@ -18,7 +18,6 @@ class WeatherService {
       throw new Error('Weather API key is not configured.');
     }
 
-    // Encoding prevents spaces and reserved characters in city names from changing the URL.
     const response = await fetch(
       `${API_URL}/${encodeURIComponent(normalizedCity)}?key=${this.#apiKey}`
     );
@@ -31,7 +30,6 @@ class WeatherService {
   }
 
   #processWeatherData(weatherData) {
-    // Fail early so API changes produce a useful error instead of a nested-property TypeError.
     if (!weatherData?.currentConditions) {
       throw new Error('Weather response is missing current conditions.');
     }
