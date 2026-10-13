@@ -5,6 +5,7 @@ import { capitalize } from '../utils/capitalize.js';
 import { getTemp } from '../utils/tempConversion.js';
 
 const SUNNY_TEMPERATURE_THRESHOLD_FAHRENHEIT = 90;
+const SUNNY_TEMPERATURE_THRESHOLD_CELSIUS = 32;
 
 export const renderWeather = async (city) => {
   if (!city) {
@@ -51,9 +52,15 @@ const renderWeatherData = (weatherData, city) => {
 };
 
 const updateWeatherTheme = (temperature) => {
+  const displayTemperature = getTemp(temperature, getCurrentTempUnit());
+  const threshold =
+    getCurrentTempUnit() === 'celsius'
+      ? SUNNY_TEMPERATURE_THRESHOLD_CELSIUS
+      : SUNNY_TEMPERATURE_THRESHOLD_FAHRENHEIT;
+
   document.body.classList.remove('sunny', 'rain');
   document.body.classList.add(
-    temperature >= SUNNY_TEMPERATURE_THRESHOLD_FAHRENHEIT ? 'sunny' : 'rain'
+    displayTemperature >= threshold ? 'sunny' : 'rain'
   );
 };
 
