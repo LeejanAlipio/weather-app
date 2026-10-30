@@ -30,7 +30,7 @@ export const renderWeather = async (city) => {
   }
 };
 
-const renderTemp = () => {
+export const renderTemp = () => {
   const temp = getCurrentTemp();
 
   if (temp === null) {
